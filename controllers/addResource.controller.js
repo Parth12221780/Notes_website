@@ -21,13 +21,13 @@ const addResource = async (req, res) => {
             console.log("File added to database", created)
             res.status(201).json({
                 message : "Resource Added Successfully",
-                redirectTo : "/addResources"
+                redirectTo : "/addResource"
             })
         }catch(err) {
             console.log("Error adding resource", err)
             res.status(401).send({
                 error : "Error adding resource",
-                redirectTo : "/addResources"
+                redirectTo : "/addResource"
             })
         }finally {
             file.unlink(filepath, function (err) {
@@ -78,6 +78,7 @@ const addContribution = async (req, res) => {
         const file = await pending_resource_model.findOne({_id : req.body._id})
         const created = await resource_model.create({
             contributerId : file.contributerId,
+            contributedBy : req.body.contributedBy,
             subject_code : req.body.subject_code,
             subject_name : req.body.subject_name,
             file_name : req.body.file_name,

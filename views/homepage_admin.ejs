@@ -101,7 +101,7 @@
     </div>
 
     <a href="/resources">Resources</a><br>
-    <a href="/addResources">Add Resources</a><br>
+    <button onclick="addResources()">Add Resource</button>
     
             <div class="pendingResources">
                 <div class="inner-heading">
@@ -322,6 +322,22 @@
                             $(".alert").alert('close');
                         }, 4000);
                     });
+                    async function addResources() {
+            try {
+                const response = await fetch("/addResources")
+                if (response.ok) {
+                    const data = await response.json()
+                    window.location.href = data.redirectTo;
+                }
+                else {
+                    const data = await response.json()
+                    sessionStorage.setItem('warning', data.warning);
+                    window.location.href = data.redirectTo
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
                 </script>
 
 </body>

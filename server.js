@@ -115,8 +115,9 @@ app.get("/resources/subject/:subject_name", auth_middleware.findToken, async (re
       user = req.user;
     }
     return res.render("subject", {
+      subject_name: subject_name,
       subject_files: subject_files,
-      user : user
+      user: user
     });
   } catch (error) {
     console.log("Error while searching for subject files in database", error);
